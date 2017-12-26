@@ -1,5 +1,6 @@
 const canvas = document.getElementById('preview');
 const fileInput = document.querySelector('input[type="file"');
+const asciiImage = document.getElementById('ascii');
 
 const context = canvas.getContext('2d');
 
@@ -26,6 +27,21 @@ const convertToGrayScales = (context, width, height) => {
     return grayScales;
 };
 
+const MAXIMUM_WIDTH = 80;
+const MAXIMUM_HEIGHT = 60;
+
+const clampDimensions = (width, height) => {
+    if (width > MAXIMUM_WIDTH) {
+        return [MAXIMUM_WIDTH, height * MAXIMUM_WIDTH / width];
+    }
+
+    if (height > MAXIMUM_HEIGHT) {
+        return [width * MAXIMUM_HEIGHT / height, MAXIMUM_HEIGHT];
+    }
+
+    return [width, height];
+};
+
 fileInput.onchange = (e) => {
     const file = e.target.files[0];
 
@@ -33,15 +49,47 @@ fileInput.onchange = (e) => {
     reader.onload = (event) => {
         const image = new Image();
         image.onload = () => {
-            canvas.width = image.width;
-            canvas.height = image.height;
+            const [width, height] = clampDimensions(image.width, image.height);
 
-            context.drawImage(image, 0, 0);
-            convertToGrayScales(context, canvas.width, canvas.height);
+            canvas.width = width;
+            canvas.height = height;
+
+            context.drawImage(image, 0, 0, width, height);
+            const grayScales = convertToGrayScales(context, width, height);
+
+            drawAscii(grayScales, width);
         }
 
         image.src = event.target.result;
     };
 
     reader.readAsDataURL(file);
+};
+
+const grayRamp = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,"^`\'. ';
+const rampLength = grayRamp.length;
+
+const getCharacterForGrayScale = grayScale => grayRamp[Math.ceil((rampLength - 1) * grayScale / 255)];
+
+const toTwoDimensionalArray = (monodimensionalArray, width) => {
+    const twoDimensionsArray = [];
+    for (let i = 0 ; i < monodimensionalArray.length ; i += width) {
+        twoDimensionsArray.push(monodimensionalArray.slice(i, i + width));
+    }
+
+    return twoDimensionsArray;
+}
+
+const drawAscii = (grayScales, width) => {
+    const ascii = grayScales.reduce((asciiImage, grayScale, index) => {
+        let nextChars = getCharacterForGrayScale(grayScale);
+
+        if (index % width === 0) {
+            nextChars += '\n';
+        }
+
+        return asciiImage + nextChars;
+    }, '');
+
+    asciiImage.textContent = ascii;
 };

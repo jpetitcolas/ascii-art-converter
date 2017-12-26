@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+}
+
+body {
+    padding: 2rem 3rem;
+    background: #111;
+    color: greenyellow;
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+    line-height: 1.5rem;
+    height: calc(100vh - 4rem);
+}
+
+.wrapper {
+    display: flex;
+    height: 100%;
+}
+
+.wrapper > div {
+    flex: 1 0 0;
+}
+
+a {
+    color: blue;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:visited {
+    color: blueviolet;
+}
+
+.left, .right {
+    flex: 1 0 0;
+    position: relative;
+}
+
+h1 {
+    margin-bottom: 3.75rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+pre {
+    font-size: 14px;
+    line-height: 1;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+}

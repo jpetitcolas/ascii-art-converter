@@ -5,13 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ascii Art Converter</title>
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-    <h1>Ascii Art Converter</h1>
-    <p>
-        <input type="file" name="picture" />
-    </p>
-    <canvas id="preview"></canvas>
+    <div class="wrapper">
+        <div class="left">
+            <h1>Ascii Art Converter</h1>
+            <p>Upload a picture and turn it into pure ASCII masterpiece!</p>
+            <p>
+                <input type="file" name="picture" />
+            </p>
+            <footer>
+                <p><a href="#">How does it works?</a> &bull; <a href="#">Source code (GitHub)</a></p>
+            </footer>
+        </div>
+        <div class="right">
+            <canvas id="preview" style="display: none;"></canvas>
+            <pre id="ascii"></pre>
+        </div>
+    </div>
     <script src="./src/index.js"></script>
 </body>
 </html>
