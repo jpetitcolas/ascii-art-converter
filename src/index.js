@@ -31,12 +31,14 @@ const MAXIMUM_WIDTH = 80;
 const MAXIMUM_HEIGHT = 60;
 
 const clampDimensions = (width, height) => {
-    if (width > MAXIMUM_WIDTH) {
-        return [MAXIMUM_WIDTH, height * MAXIMUM_WIDTH / width];
+    if (height > MAXIMUM_HEIGHT) {
+        const reducedWidth = Math.floor(width * MAXIMUM_HEIGHT / height);
+        return [reducedWidth, MAXIMUM_HEIGHT];
     }
 
-    if (height > MAXIMUM_HEIGHT) {
-        return [width * MAXIMUM_HEIGHT / height, MAXIMUM_HEIGHT];
+    if (width > MAXIMUM_WIDTH) {
+        const reducedHeight = Math.floor(height * MAXIMUM_WIDTH / width);
+        return [MAXIMUM_WIDTH, reducedHeight];
     }
 
     return [width, height];
@@ -57,6 +59,7 @@ fileInput.onchange = (e) => {
             context.drawImage(image, 0, 0, width, height);
             const grayScales = convertToGrayScales(context, width, height);
 
+            fileInput.style.display = 'none';
             drawAscii(grayScales, width);
         }
 
@@ -71,20 +74,10 @@ const rampLength = grayRamp.length;
 
 const getCharacterForGrayScale = grayScale => grayRamp[Math.ceil((rampLength - 1) * grayScale / 255)];
 
-const toTwoDimensionalArray = (monodimensionalArray, width) => {
-    const twoDimensionsArray = [];
-    for (let i = 0 ; i < monodimensionalArray.length ; i += width) {
-        twoDimensionsArray.push(monodimensionalArray.slice(i, i + width));
-    }
-
-    return twoDimensionsArray;
-}
-
 const drawAscii = (grayScales, width) => {
     const ascii = grayScales.reduce((asciiImage, grayScale, index) => {
         let nextChars = getCharacterForGrayScale(grayScale);
-
-        if (index % width === 0) {
+        if ((index + 1) % width === 0) {
             nextChars += '\n';
         }
 

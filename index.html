@@ -9,22 +9,18 @@
     <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-    <div class="wrapper">
-        <div class="left">
-            <h1>Ascii Art Converter</h1>
-            <p>Upload a picture and turn it into pure ASCII masterpiece!</p>
-            <p>
-                <input type="file" name="picture" />
-            </p>
-            <footer>
-                <p><a href="#">How does it works?</a> &bull; <a href="#">Source code (GitHub)</a></p>
-            </footer>
-        </div>
-        <div class="right">
-            <canvas id="preview" style="display: none;"></canvas>
-            <pre id="ascii"></pre>
-        </div>
-    </div>
+    <header>
+        <h1>Ascii Art Converter</h1>
+        <p>Upload a picture and turn it into pure ASCII masterpiece!</p>
+    </header>
+
+    <input type="file" name="picture" />
+    <canvas id="preview" style="display: none;"></canvas>
+    <pre id="ascii"></pre>
+
+    <footer>
+        <p><a href="#">How does it works?</a> &bull; <a href="#">Source code (GitHub)</a></p>
+    </footer>
     <script src="./src/index.js"></script>
 </body>
 </html>

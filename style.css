@@ -4,55 +4,33 @@
 
 body {
     padding: 2rem 3rem;
-    background: #111;
-    color: greenyellow;
     font-family: 'VT323', monospace;
-    font-size: 24px;
     line-height: 1.5rem;
-    height: calc(100vh - 4rem);
+    font-size: 18px;
 }
 
-.wrapper {
+header {
     display: flex;
-    height: 100%;
+    align-items: baseline;
+    font-size: 24px;
 }
 
-.wrapper > div {
-    flex: 1 0 0;
+header h1 {
+    margin-right: 1.5rem;
 }
 
-a {
-    color: blue;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-a:visited {
-    color: blueviolet;
-}
-
-.left, .right {
-    flex: 1 0 0;
-    position: relative;
-}
-
-h1 {
-    margin-bottom: 3.75rem;
-}
-
-p {
-    margin-bottom: 1rem;
+input {
+    margin-top: 2rem;
+    font-size: 32px;
 }
 
 pre {
-    font-size: 14px;
+    margin: 1rem auto;
+    font-size: 12px;
     line-height: 1;
 }
 
 footer {
     position: absolute;
-    bottom: 0;
+    bottom: 1rem;
 }
