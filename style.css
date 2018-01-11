@@ -12,7 +12,7 @@ body {
 header {
     display: flex;
     align-items: baseline;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 header h1 {
@@ -21,12 +21,13 @@ header h1 {
 
 input {
     margin-top: 2rem;
-    font-size: 32px;
+    font-size: 18px;
 }
 
 pre {
+    font-family: 'Courier New', 'monospace';
     margin: 1rem auto;
-    font-size: 12px;
+    font-size: 8px;
     line-height: 1;
 }
 

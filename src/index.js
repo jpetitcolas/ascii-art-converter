@@ -6,6 +6,20 @@ const context = canvas.getContext('2d');
 
 const toGrayScale = (r, g, b) => 0.21 * r + 0.72 * g + 0.07 * b;
 
+const getFontRatio = () => {
+    const pre = document.createElement('pre');
+    pre.style.display = 'inline';
+    pre.textContent = ' ';
+
+    document.body.appendChild(pre);
+    const { width, height } = pre.getBoundingClientRect();
+    document.body.removeChild(pre);
+
+    return height / width;
+};
+
+const fontRatio = getFontRatio();
+
 const convertToGrayScales = (context, width, height) => {
     const imageData = context.getImageData(0, 0, width, height);
 
@@ -28,20 +42,22 @@ const convertToGrayScales = (context, width, height) => {
 };
 
 const MAXIMUM_WIDTH = 80;
-const MAXIMUM_HEIGHT = 60;
+const MAXIMUM_HEIGHT = 80;
 
 const clampDimensions = (width, height) => {
+    const rectifiedWidth = Math.floor(getFontRatio() * width);
+
     if (height > MAXIMUM_HEIGHT) {
-        const reducedWidth = Math.floor(width * MAXIMUM_HEIGHT / height);
+        const reducedWidth = Math.floor(rectifiedWidth * MAXIMUM_HEIGHT / height);
         return [reducedWidth, MAXIMUM_HEIGHT];
     }
 
     if (width > MAXIMUM_WIDTH) {
-        const reducedHeight = Math.floor(height * MAXIMUM_WIDTH / width);
+        const reducedHeight = Math.floor(height * MAXIMUM_WIDTH / rectifiedWidth);
         return [MAXIMUM_WIDTH, reducedHeight];
     }
 
-    return [width, height];
+    return [rectifiedWidth, height];
 };
 
 fileInput.onchange = (e) => {
